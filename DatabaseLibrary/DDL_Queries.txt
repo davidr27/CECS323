@@ -1,0 +1,36 @@
+CREATE TABLE writingGroup(
+    groupName VARCHAR(30) NOT NULL,
+    headWriter VARCHAR(30) NOT NULL,
+    yearFormed SMALLINT NOT NULL,
+    subject VARCHAR(30) NOT NULL,
+    CONSTRAINT writingGroup_pk PRIMARY KEY (groupName)
+);
+
+
+
+CREATE TABLE publisher(
+    publisherName VARCHAR(60) NOT NULL,
+    publisherAddress VARCHAR(50) NOT NULL,
+    publisherPhone VARCHAR(15) NOT NULL,
+    publisherEmail VARCHAR(40)NOT NULL,
+    CONSTRAINT publisher_pk PRIMARY KEY (publisherName)
+);
+
+
+CREATE TABLE book(
+    groupName VARCHAR(30) NOT NULL,
+    bookTitle VARCHAR(60) NOT NULL,
+    publisherName VARCHAR(60) NOT NULL,
+    yearPublished SMALLINT NOT NULL,
+    numberOfPages INT NOT NULL,
+
+    CONSTRAINT book_pk PRIMARY KEY (groupName, bookTitle),
+
+    CONSTRAINT book_writingGroup_fk 
+    FOREIGN KEY (groupName)
+    REFERENCES writingGroup(groupName),
+
+    CONSTRAINT book_publisher_fk 
+    FOREIGN KEY (publisherName)
+    REFERENCES publisher(publisherName)
+);
